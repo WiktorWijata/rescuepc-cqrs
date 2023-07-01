@@ -1,4 +1,6 @@
-﻿namespace RescuePC.Software.CQRS.Source.Event;
+﻿using System.Threading.Tasks;
+
+namespace RescuePC.Software.CQRS.Source.Event;
 
 public interface IEventBus
 {

@@ -1,4 +1,7 @@
-﻿namespace RescuePC.Software.CQRS.Source.Commands;
+﻿using System;
+using System.Threading.Tasks;
+
+namespace RescuePC.Software.CQRS.Source.Commands;
 
 public class CommandBus : ICommandBus
 {

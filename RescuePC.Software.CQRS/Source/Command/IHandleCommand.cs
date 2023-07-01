@@ -1,4 +1,6 @@
-﻿namespace RescuePC.Software.CQRS.Source.Commands;
+﻿using System.Threading.Tasks;
+
+namespace RescuePC.Software.CQRS.Source.Commands;
 
 public interface IHandleCommand { }
 

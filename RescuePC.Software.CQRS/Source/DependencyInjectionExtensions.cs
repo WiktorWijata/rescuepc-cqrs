@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using RescuePC.Software.CQRS.Source.Commands;
 using RescuePC.Software.CQRS.Source.Event;
 using RescuePC.Software.CQRS.Source.Query;
@@ -8,7 +12,7 @@ public static class DependencyInjectionExtensions
 {
     public static void AddCQRS(
         this IServiceCollection serviceCollection,
-        params System.Reflection.Assembly[] handlersAssemblies)
+        params Assembly[] handlersAssemblies)
     {
         var handlerTypes = handlersAssemblies.SelectMany(x => x.GetTypes())
             .Where(x => typeof(IHandleQuery).IsAssignableFrom(x) ||

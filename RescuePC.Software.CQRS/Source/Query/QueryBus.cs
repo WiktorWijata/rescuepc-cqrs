@@ -1,4 +1,5 @@
-﻿using RescuePC.Software.CQRS.Source.Commands;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace RescuePC.Software.CQRS.Source.Query;
 

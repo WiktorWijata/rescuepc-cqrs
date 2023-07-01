@@ -1,4 +1,9 @@
-﻿namespace RescuePC.Software.CQRS.Source.Event;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RescuePC.Software.CQRS.Source.Event;
 
 public class EventBus : IEventBus
 {

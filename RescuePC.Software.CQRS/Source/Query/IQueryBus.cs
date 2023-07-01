@@ -1,4 +1,6 @@
-﻿namespace RescuePC.Software.CQRS.Source.Query;
+﻿using System.Threading.Tasks;
+
+namespace RescuePC.Software.CQRS.Source.Query;
 
 public interface IQueryBus
 {
