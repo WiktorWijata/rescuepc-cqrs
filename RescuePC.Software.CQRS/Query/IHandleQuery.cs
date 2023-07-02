@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RescuePC.Software.CQRS.Source.Query;
+namespace RescuePC.Software.CQRS.Query;
 
 public interface IHandleQuery { }
 

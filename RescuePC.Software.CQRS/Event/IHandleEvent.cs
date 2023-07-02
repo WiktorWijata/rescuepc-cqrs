@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RescuePC.Software.CQRS.Source.Event;
+namespace RescuePC.Software.CQRS.Event;
 
 public interface IHandleEvent { }
 

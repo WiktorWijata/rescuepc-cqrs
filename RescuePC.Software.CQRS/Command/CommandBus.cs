@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace RescuePC.Software.CQRS.Source.Commands;
+namespace RescuePC.Software.CQRS.Command;
 
 public class CommandBus : ICommandBus
 {

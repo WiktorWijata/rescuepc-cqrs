@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace RescuePC.Software.CQRS.Source.Query;
+namespace RescuePC.Software.CQRS.Query;
 
 public class QueryBus : IQueryBus
 {

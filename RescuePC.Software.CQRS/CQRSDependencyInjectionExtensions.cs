@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using RescuePC.Software.CQRS.Source.Commands;
-using RescuePC.Software.CQRS.Source.Event;
-using RescuePC.Software.CQRS.Source.Query;
+using RescuePC.Software.CQRS.Command;
+using RescuePC.Software.CQRS.Event;
+using RescuePC.Software.CQRS.Query;
 
-namespace RescuePC.Software.CQRS.Source;
-public static class DependencyInjectionExtensions
+namespace RescuePC.Software.CQRS;
+public static class CQRSDependencyInjectionExtensions
 {
     public static void AddCQRS(
         this IServiceCollection serviceCollection,
@@ -16,7 +16,7 @@ public static class DependencyInjectionExtensions
     {
         var handlerTypes = handlersAssemblies.SelectMany(x => x.GetTypes())
             .Where(x => typeof(IHandleQuery).IsAssignableFrom(x) ||
-                        typeof(IHandleCommand).IsAssignableFrom(x) || 
+                        typeof(IHandleCommand).IsAssignableFrom(x) ||
                         typeof(IHandleEvent).IsAssignableFrom(x));
 
         foreach (var handlerType in handlerTypes)
@@ -68,7 +68,7 @@ public static class DependencyInjectionExtensions
     {
         var services = GetAllServices(component).Where(t => t != component);
 
-        foreach(var service in services)
+        foreach (var service in services)
         {
             serviceCollection.Add(new ServiceDescriptor(service, context => context.GetService(component), lifetime));
         }
