@@ -1,0 +1,38 @@
+trigger:
+  - master
+ 
+pool:
+  name: Azure Pipelines
+  vmImage: 'windows-latest'
+ 
+variables:
+  buildConfiguration: 'Release'
+ 
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core 7'
+  inputs:
+    version: 7.0.x
+ 
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+ 
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Nuget Pack'
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Nuget Push'
+  inputs:
+    command: push
+    publishVstsFeed: 'rescuepcsoftware'
