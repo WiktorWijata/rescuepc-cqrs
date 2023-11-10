@@ -79,6 +79,8 @@ public static class CQRSDependencyInjectionExtensions
         {
             return;
         }
+
+        serviceCollection.Add(new ServiceDescriptor(baseType, context => context.GetService(component), lifetime));
     }
 
     private static IEnumerable<Type> GetAllServices(Type type)
