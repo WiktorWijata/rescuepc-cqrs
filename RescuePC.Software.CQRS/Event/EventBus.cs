@@ -16,7 +16,7 @@ public class EventBus : IEventBus
 
     public async ValueTask Publish<TEvent>(TEvent @event) where TEvent : IEvent
     {
-        var handlers = _handlersFactory(typeof(TEvent)).Cast<IHandleEvent<TEvent>>();
+        var handlers = _handlersFactory(@event.GetType()).Cast<dynamic>();
 
         foreach (var handler in handlers)
         {

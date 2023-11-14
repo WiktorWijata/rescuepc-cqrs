@@ -24,19 +24,9 @@ public static class CQRSDependencyInjectionExtensions
             serviceCollection.RegisterComponent(handlerType, ServiceLifetime.Transient);
         }
 
-        serviceCollection.AddTransient<IQueryBus, QueryBus>();
-        serviceCollection.AddTransient<ICommandBus, CommandBus>();
         serviceCollection.AddTransient<IEventBus, EventBus>();
-
-        serviceCollection.AddTransient<Func<Tuple<Type, Type>, IHandleQuery>>(s =>
-        {
-            return t =>
-            {
-                var (queryType, resultType) = t;
-                var handlerType = typeof(IHandleQuery<,>).MakeGenericType(queryType, resultType);
-                return (IHandleQuery)s.GetRequiredService(handlerType);
-            };
-        });
+        serviceCollection.AddTransient<ICommandBus, CommandBus>();
+        serviceCollection.AddTransient<IQueryBus, QueryBus>();
 
         serviceCollection.AddTransient<Func<Type, IHandleCommand>>(s =>
         {
@@ -52,14 +42,25 @@ public static class CQRSDependencyInjectionExtensions
             return t =>
             {
                 var handlerType = typeof(IHandleEvent<>).MakeGenericType(t);
-                return (IEnumerable<IHandleEvent>)s.GetRequiredService(handlerType);
+                var handlersCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
+                return (IEnumerable<IHandleEvent>)s.GetRequiredService(handlersCollectionType);
+            };
+        });
+
+        serviceCollection.AddTransient<Func<Tuple<Type, Type>, IHandleQuery>>(s =>
+        {
+            return t =>
+            {
+                var (queryType, resultType) = t;
+                var handlerType = typeof(IHandleQuery<,>).MakeGenericType(queryType, resultType);
+                return (IHandleQuery)s.GetRequiredService(handlerType);
             };
         });
     }
 
     private static IServiceCollection RegisterComponent(this IServiceCollection services, Type type, ServiceLifetime lifetime)
     {
-        services.Add(new ServiceDescriptor(type, type, ServiceLifetime.Transient));
+        services.Add(new ServiceDescriptor(type, type, lifetime));
         BindAliasesOfComponentToComponent(services, type, lifetime);
         return services;
     }
