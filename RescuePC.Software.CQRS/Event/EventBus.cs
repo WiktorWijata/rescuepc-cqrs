@@ -20,7 +20,7 @@ public class EventBus : IEventBus
 
         foreach (var handler in handlers)
         {
-            await handler.Handle(@event);
+            await handler.Handle((dynamic)@event);
         }
     }
 }
